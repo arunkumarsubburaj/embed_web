@@ -49,8 +49,9 @@ export default {
         {
           type: "Header",
           attributes: {
-            header_image: "./../assets/Theme1/Group 1961.png",
-            bg_color: "#fff",
+            header_image:
+              "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
+            bg_color: "#003A46",
             title: "Welcome to Loyalty & Referral Program",
             description:
               "Some text here to explain how to earn more rewards plus second line.",

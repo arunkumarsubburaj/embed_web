@@ -1,31 +1,30 @@
 <template>
-  <div class="snippet" v-bind:style="styleObj" v-if="attributes">
+  <div class="snippet" v-if="attributes">
     <div
       class="card-wrapper"
-      v-bind:style="{
-        backgroundColor: attributes.bg_Color,
+      :style="{
+        backgroundColor: attributes.bg_color,
       }"
     >
-      <div class="box">
+      <div class="box left">
         <h3 class="titleHeader" v-html="attributes.title"></h3>
         <p class="description" v-html="attributes.description"></p>
         <button
           class="joinNow"
-          v-bind:style="{
+          :style="{
             color: attributes.btn_txt_color,
             backgroundColor: attributes.btn_color,
           }"
           v-html="attributes.btn_text"
         ></button>
       </div>
-      <div class="smartVector">
-        <div class="ellipsis embed-Ellipse"></div>
-        <div
-          class="bannerImage"
-          v-bind:style="{
-            backgroundImage: attributes.header_image,
+      <div class="box right">
+        <figure
+          class="bannerImg"
+          :style="{
+            backgroundImage: 'url(' + attributes.header_image + ')',
           }"
-        ></div>
+        ></figure>
       </div>
     </div>
   </div>
@@ -36,57 +35,19 @@
 .snippet {
   height: 400px;
   width: 100%;
-  //   background-color: aquamarine;
-  position: relative;
-  color: #000;
-  &::before {
-    content: "";
-    background-image: url("./../../../assets/Vector_Smart_Object_Left.png");
-    background-position: -45% 80%;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
-  &::after {
-    content: "";
-    background-image: url("./../../../assets/Vector_Smart_Object_Right.png");
-    background-position: 105% 102%;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
+  color: #fff;
   .card-wrapper {
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 0;
-    position: relative;
     width: 100%;
     height: 100%;
     position: relative;
     box-sizing: border-box;
     display: flex;
   }
-  @media screen and (min-width: 1024px) {
-    .card-wrapper {
-      justify-content: flex-start;
-      .box {
-        right: -15%;
-      }
-    }
-  }
 
   .box {
-    width: 470px;
-    padding: 20px 10px;
+    width: 50%;
     box-sizing: border-box;
     height: 100%;
     display: flex;
@@ -95,6 +56,42 @@
     align-items: flex-start;
     position: relative;
     font-family: "Poppins", sans-serif;
+    figure {
+      background-size: 100% 100%;
+    }
+    &.left {
+      padding-left: 10%;
+      position: relative;
+      &::before {
+        // content: "";
+        background-image: url("./../../../assets/Vector_Smart_Object_Left.png");
+        background-position: -45% 80%;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    &.right {
+      &::after {
+        // content: "";
+        background-image: url("./../../../assets/Vector_Smart_Object_Right.png");
+        background-position: 105% 102%;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    .bannerImg {
+      width: 100%;
+      height: 100%;
+      background-color: green;
+    }
     .titleHeader {
       font-size: 36px;
       font-weight: bolder;
@@ -108,14 +105,14 @@
     }
     .joinNow {
       padding: 20px;
-      border-radius: 28px;
+      border-radius: 30px;
       height: 60px;
       line-height: 60px;
       font-size: 18px;
-      font-weight: bold;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-weight: bold;
       margin: 10px 0;
       min-width: 186px;
       border: none;
@@ -123,24 +120,14 @@
       box-sizing: border-box;
     }
   }
-  .smartVector {
-    width: 500px;
-    height: 360px;
-    position: absolute;
-    right: 18%;
-    .bannerImage {
-      width: 100%;
-      height: 100%;
-      background-image: url("./../../../assets/Theme2/Group 3498.png");
-      background-size: contain;
-      z-index: 2;
+  @media screen and (max-width: 1200px) {
+    .box.right {
+      display: none;
     }
-    .ellipsis {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
+    .box.left {
+      padding: 0;
+      position: relative;
+      width: 90%;
     }
   }
 }
