@@ -7,11 +7,13 @@
     >
       <announcement
         v-if="snippet.type == 'Announcement'"
+        :themeId="currrentThemeId"
         :snippetData="snippet"
       ></announcement>
       <embed-header
         v-if="snippet.type == 'Header'"
         :snippetData="snippet"
+        :themeId="currrentThemeId"
       ></embed-header>
     </div>
   </div>
@@ -19,33 +21,15 @@
 <style lang="less">
 @import url("./../reset.css");
 @import url("./../quill.css");
-@font-face {
-  font-family: "Material Icons";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v118/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
-    format("woff2");
-}
-
-.material-icons {
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
-}
+@import url("./../material-icons.css");
+@import url("./../fonts.css");
+@import url("./../am-embed-fonts.css");
 </style>
 <script>
-import announcement from "./Announcement";
-import embedHeader from "./Header";
+const announcement = () =>
+  import(/* webpackChunkName: "announcement" */ "./Announcement");
+const embedHeader = () =>
+  import(/* webpackChunkName: "embedHeader" */ "./Header");
 export default {
   name: "am-embed",
   components: { announcement, embedHeader },
@@ -56,21 +40,21 @@ export default {
         {
           type: "Announcement",
           attributes: {
-            bg_color: "#B7CDCE",
+            bg_color: "#374BDA",
             title:
-              "Announcements: Earn Points every time you shop. One dollor = five points",
-            font_color: "#0017ff",
+              "Announcements: Earn Points every time you shop. One dollor = five points.",
+            font_color: "#ffffff",
           },
         },
         {
           type: "Header",
           attributes: {
-            header_image: "upload/img/fomo/5_405_1626925342.jpg",
-            bg_color: "#7FE0E4",
+            header_image: "./../assets/Theme1/Group 1961.png",
+            bg_color: "#fff",
             title: "Welcome to Loyalty & Referral Program",
             description:
               "Some text here to explain how to earn more rewards plus second line.",
-            btn_color: "#ED4610",
+            btn_color: "#374BDA",
             btn_txt_color: "#ffffff",
             btn_text: "Join Now",
             btn_url: "http://www.google.com",
@@ -78,12 +62,17 @@ export default {
         },
       ]),
     },
+    themeId: {
+      type: Number,
+      default: 1,
+    },
   },
   data() {
     return {
       embedData: this.datasource
         ? JSON.parse(this.datasource.replace(/\\"/g, "'"))
         : [],
+      currrentThemeId: this.themeId,
     };
   },
   mounted() {
@@ -95,8 +84,8 @@ export default {
       this.datasource = value;
       this.embedData = JSON.parse(value.replace(/\\"/g, "'"));
     },
-    embedData: function (value) {
-      console.log("embedData: ", value);
+    themeId: function (value) {
+      this.currrentThemeId = value;
     },
   },
   methods: {},
