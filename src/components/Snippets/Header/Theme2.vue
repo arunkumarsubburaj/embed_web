@@ -35,7 +35,6 @@
 .snippet {
   height: 400px;
   width: 100%;
-  color: #fff;
   .card-wrapper {
     justify-content: center;
     align-items: center;

@@ -7,14 +7,19 @@
     >
       <announcement
         v-if="snippet.type == 'Announcement'"
-        :themeId="currrentThemeId"
+        :themeId="currentThemeId"
         :snippetData="snippet"
       ></announcement>
       <embed-header
         v-if="snippet.type == 'Header'"
         :snippetData="snippet"
-        :themeId="currrentThemeId"
+        :themeId="currentThemeId"
       ></embed-header>
+      <how-it-works
+        v-if="snippet.type == 'HowItWorks'"
+        :snippetData="snippet"
+        :themeId="currentThemeId"
+      ></how-it-works>
     </div>
   </div>
 </template>
@@ -30,9 +35,11 @@ const announcement = () =>
   import(/* webpackChunkName: "announcement" */ "./Announcement");
 const embedHeader = () =>
   import(/* webpackChunkName: "embedHeader" */ "./Header");
+const howItWorks = () =>
+  import(/* webpackChunkName: "embedHeader" */ "./HowItWorks.vue");
 export default {
   name: "am-embed",
-  components: { announcement, embedHeader },
+  components: { announcement, embedHeader, howItWorks },
   props: {
     datasource: {
       type: String,
@@ -42,7 +49,7 @@ export default {
           attributes: {
             bg_color: "#374BDA",
             title:
-              "Announcements: Earn Points every time you shop. One dollor = five points.",
+              "Announcements: Earn Points every time you shop. One dollor = five points",
             font_color: "#ffffff",
           },
         },
@@ -50,9 +57,22 @@ export default {
           type: "Header",
           attributes: {
             header_image:
-              "https://i.picsum.photos/id/1016/3844/2563.jpg?hmac=WEryKFRvTdeae2aUrY-DHscSmZuyYI9jd_-p94stBvc",
-            bg_color: "#003A46",
+              "https://i.picsum.photos/id/1002/4312/2868.jpg?hmac=5LlLE-NY9oMnmIQp7ms6IfdvSUQOzP_O3DPMWmyNxwo",
+            bg_color: "red",
             title: "Welcome to Loyalty & Referral Program",
+            description:
+              "Some text here to explain how to earn more rewards plus second line.",
+            btn_color: "#374BDA",
+            btn_txt_color: "#ffffff",
+            btn_text: "Join Now",
+            btn_url: "http://www.google.com",
+          },
+        },
+        {
+          type: "HowItWorks",
+          attributes: {
+            bg_color: "red",
+            stepValues: [""],
             description:
               "Some text here to explain how to earn more rewards plus second line.",
             btn_color: "#374BDA",
@@ -73,7 +93,7 @@ export default {
       embedData: this.datasource
         ? JSON.parse(this.datasource.replace(/\\"/g, "'"))
         : [],
-      currrentThemeId: this.themeId,
+      currentThemeId: this.themeId,
     };
   },
   mounted() {
@@ -86,7 +106,7 @@ export default {
       this.embedData = JSON.parse(value.replace(/\\"/g, "'"));
     },
     themeId: function (value) {
-      this.currrentThemeId = value;
+      this.currentThemeId = value;
     },
   },
   methods: {},

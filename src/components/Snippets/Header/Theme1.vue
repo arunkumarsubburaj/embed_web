@@ -89,7 +89,6 @@
     .bannerImg {
       width: 100%;
       height: 100%;
-      background-color: green;
     }
     .titleHeader {
       font-size: 36px;
